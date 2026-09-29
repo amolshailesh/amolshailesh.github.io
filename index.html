@@ -320,12 +320,13 @@ footer p{margin:0}
         recently on a randomized controlled trial in Bihar on women's collective action
         and access to MGNREGA, the world's largest public workfare program.
       </p>
-      <p>
+
+<!--      <p>        
         That sequence shapes how I think about evidence — where it comes from, who generates 
         it, what it can and cannot say, and what has to happen for a program to reach the people
         it is meant to serve. I have seen data collected under difficult field conditions,
         and I have also see the other side, in a state department, deciding what to do with it.
-      </p>
+      </p>                                             -->
       <p>
         My training is quantitative. I completed an MSc in Social Research Methods at
         LSE as a Chevening Scholar, following an MA in Development Economics, and I work
@@ -335,7 +336,7 @@ footer p{margin:0}
         interviews did most of the work of telling me what to measure.
       </p>
       <p>
-        I am currently based in [city] and am looking for research roles in impact
+        I am currently based in Nashik and am looking for research roles in impact
         evaluation and policy research, with a view to doctoral study. I am happy to
         discuss collaborations on local governance and social protection in South Asia.
       </p>
@@ -493,83 +494,61 @@ footer p{margin:0}
     </div>
     <div>
       <div class="filters" role="group" aria-label="Filter work by type">
-        <button type="button" data-filter="all" aria-pressed="true">All</button>
-        <button type="button" data-filter="papers" aria-pressed="false">Research papers</button>
-        <button type="button" data-filter="writing" aria-pressed="false">Writing</button>
+        <button type="button" data-filter="all" aria-pressed="true">All</button>        
+        <button type="button" data-filter="writing" aria-pressed="false">Research writing</button>
         <button type="button" data-filter="code" aria-pressed="false">Code</button>
+        
+        
+<!--
+        <button type="button" data-filter="papers" aria-pressed="false">Research papers</button>
         <button type="button" data-filter="viz" aria-pressed="false">Data visualisation</button>
-        <button type="button" data-filter="reports" aria-pressed="false">Reports</button>
+        <button type="button" data-filter="reports" aria-pressed="false">Reports</button>        -->
       </div>
 
       <div class="items" id="items">
 
-        <article class="item" data-kind="papers">
+        <article class="item" data-kind="writing">
           <h4><a href="#">Descriptive representation, substantive exclusion: elite backlash against Scheduled Caste village presidents in rural India</a></h4>
-          <span class="kind">Dissertation · 2026</span>
-          <p>MSc dissertation, LSE. Survey of 299 village heads, two embedded experiments, and seven interviews. [Upload the PDF and link it here.]</p>
+          <span class="kind">Dissertation · Aug 2026</span>
+          <p>MSc dissertation, LSE. Survey of 299 village heads, two embedded experiments, and seven interviews.</p>
+        </article>
+           
+        <article class="item" data-kind="writing">
+          <h4><a href="#">Procedural representation and elite backlash: experiences of everyday discrimination faced by Scheduled Caste village presidents in India</a></h4>
+          <span class="kind">Article · Aug 2026</span>
+          <p>Published in the <em>Graduate Inequality Review</em>, University of Oxford.</p>
         </article>
 
-        <article class="item" data-kind="papers">
+        <article class="item" data-kind="writing">
           <h4><a href="#">Effect of social audits on MGNREGA programme delivery and leakages</a></h4>
-          <span class="kind">Dissertation · 2023</span>
-          <p>MA dissertation, South Asian University. Five-year panel analysis. [Upload the PDF and link it here.]</p>
-        </article>
-
-        <article class="item" data-kind="writing">
-          <h4><a href="#">[Article title]</a></h4>
-          <span class="kind">Article · 2026</span>
-          <p>Published in the <em>Graduate Inequality Review</em>, University of Oxford. [Add the exact title and the live link.]</p>
-        </article>
-
-        <article class="item" data-kind="writing">
-          <h4><a href="#">[Blog post, op-ed or short essay]</a></h4>
-          <span class="kind">Short writing</span>
-          <p>[One line on what it argues and where it appeared. Delete this block if you have nothing to put here yet.]</p>
+          <span class="kind">Dissertation · May 2023</span>
+          <p>MA dissertation, South Asian University. Five-year panel analysis.</p>
         </article>
 
         <article class="item" data-kind="code">
-          <h4><a href="#">Balance tables for a cluster-randomised trial</a></h4>
+          <h4><a href="#">State sample code</a></h4>
           <span class="kind">Stata</span>
-          <p>Collapses quarterly administrative data to the village-council level, constructs strata from randomisation waves and SC population share, and produces publication-ready balance tables with stratum fixed effects.</p>
-          <pre class="codeblock"><code><span class="c">* strata from randomisation wave and SC population share</span>
-gen strataFE = 1 if AboveMedian == 1 &amp; wave1 == 1
-    replace strataFE = 2 if AboveMedian == 0 &amp; wave1 == 1
-    replace strataFE = 3 if AboveMedian == 1 &amp; wave2 == 1
-    replace strataFE = 4 if AboveMedian == 0 &amp; wave2 == 1
-
-<span class="c">* difference in means, absorbing strata, robust SEs</span>
-foreach x in `gpcontrols' {
-    areg `x' treatment, r absorb(strataFE)
-    mat table[`row', 3] = _b[treatment]
-    mat table[`row'+1, 3] = _se[treatment]
-    local row = `row' + 2
-}</code></pre>
+          <p>Cleaning and recoding household survey data. Matching and merging administrative data using string match function of Stata. Running balance tests.</p>
         </article>
 
         <article class="item" data-kind="code">
-          <h4><a href="#">Survey cleaning pipeline</a></h4>
-          <span class="kind">Stata</span>
-          <p>Recoding of don't-knows and skip patterns across a multi-section household instrument, construction of derived outcome variables, and an automated log of post-round data quality checks by enumerator.</p>
+          <h4><a href="#">R sample code</a></h4>
+          <span class="kind">R</span>
+          <p>Reappraisal of the "Polity Size and Local Government Performance: Evidence from India" by Narasimhan & Weaver (2024) paper</p>
         </article>
 
         <article class="item" data-kind="code">
-          <h4><a href="#">Matching administrative records to survey data</a></h4>
-          <span class="kind">Stata</span>
-          <p>Reconstructs district, block and panchayat identifiers from scraped MGNREGA job-card numbers, cleans inconsistent place-name strings, and merges job-card, applicant and employment tables into a single analysis file.</p>
+          <h4><a href="#">SurveyCTO sample code</a></h4>
+          <span class="kind">SurveyCTO</span>
+          <p>A programmed endline household instrument with skip logic, constraints and pre-loaded roster data, built for in-person administration by a field team in Bihar.</p>
         </article>
 
-        <article class="item" data-kind="viz">
-          <h4><a href="#">[Dashboard or chart title]</a></h4>
-          <span class="kind">Looker Studio / R</span>
-          <p>[One line on what it shows and who used it. Add a screenshot image or a public link. Only publish visualisations built on data you are free to share.]</p>
-        </article>
-
-        <article class="item" data-kind="reports">
-          <h4><a href="#">[Report title]</a></h4>
-          <span class="kind">Report</span>
-          <p>[Client or funder, year, and one line on what the report covers.]</p>
-        </article>
-
+        <article class="item" data-kind="code">
+          <h4><a href="#">KoboToolBox sample code</a></h4>
+          <span class="kind">KoboToolBox</span>
+          <p>A KoboToolbox instrument for tracking program activity - group meetings, members enrolled, donations received - reported by the implementation team.</p>
+        </article>   
+        
       </div>
     </div>
   </div>
@@ -613,8 +592,8 @@ foreach x in `gpcontrols' {
         <h3>Experience</h3>
         <div class="cv-row">
           <span class="years">2023–2025</span>
-          <div><p class="role">Research Associate, then Senior Research Associate</p>
-          <p class="org">RCT with Dr M. R. Sharan (University of Maryland) and Dr Niharika Singh (University of Notre Dame / LSE) · Bihar</p></div>
+          <div><p class="role">Senior Research Associate</p>
+          <p class="org">RCT with Dr M. R. Sharan (University of Maryland) and Dr Niharika Singh (LSE) · Bihar</p></div>
         </div>
         <div class="cv-row">
           <span class="years">2022</span>
@@ -639,22 +618,15 @@ foreach x in `gpcontrols' {
       </div>
 
       <div class="cv-block">
-        <h3>Service</h3>
+        <h3>Volunteering &amp; Leadership</h3>
         <div class="cv-row">
+          <span class="years">2026–present</span>
+          <div><p class="role">Member, EvalYouth Reference Group, UNICEF India</p>
+          <p class="org">Member of ERG for UNICEF India's evaluation of a pilot program supporting young women migrants, reviewing the evaluation design and draft findings.</p></div>
+
           <span class="years">2022–2025</span>
           <div><p class="role">Co-lead, EvalYouth Asia</p>
-          <p class="org">Regional chapter of the EvalYouth Global Network for young and emerging evaluators. Organised M&amp;E capacity-building workshops in Manila (2023) and Colombo (2024).</p></div>
-        </div>
-      </div>
-
-      <div class="cv-block">
-        <h3>Methods and tools</h3>
-        <div class="skills">
-          <div><h4>Quantitative</h4><p>Randomised evaluations, causal inference, survey methodology, sampling, index construction, conjoint and behavioural experiments</p></div>
-          <div><h4>Software</h4><p>Stata (advanced), R, Python, LaTeX, Git</p></div>
-          <div><h4>Data collection</h4><p>SurveyCTO, KoboToolbox, Qualtrics; enumerator training and high-frequency quality checks</p></div>
-          <div><h4>Qualitative</h4><p>Semi-structured interviewing, thematic analysis, research ethics and reflexivity</p></div>
-          <div><h4>Languages</h4><p>English, Hindi, Marathi</p></div>
+          <p class="org">Regional chapter of the EvalYouth Global Network for young and emerging evaluators. Organised M&amp;E capacity-building workshops in Manila (2023) and Colombo (2024).</p></div>   
         </div>
       </div>
 
@@ -677,11 +649,11 @@ foreach x in `gpcontrols' {
         social protection, local governance or inequality in South Asia.
       </p>
       <ul class="contact-list" style="margin-top:2rem">
-        <li><span>Email</span> <a class="textlink" href="mailto:[your.email@example.com]">[your.email@example.com]</a></li>
+        <li><span>Email</span> <a class="textlink" href="mailto:amolsd07@gmail.com">[amolsd07@gmail.com]</a></li>
         <li><span>LinkedIn</span> <a class="textlink" href="https://www.linkedin.com/in/amol-shaila-suresh" rel="me">linkedin.com/in/amol-shaila-suresh</a></li>
-        <li><span>GitHub</span> <a class="textlink" href="#">[github.com/yourusername]</a></li>
-        <li><span>Scholar</span> <a class="textlink" href="#">[Google Scholar or ORCID link]</a></li>
-        <li><span>Based in</span> [City, Country]</li>
+ <!--   <li><span>GitHub</span> <a class="textlink" href="#">[github.com/yourusername]</a></li>
+        <li><span>Scholar</span> <a class="textlink" href="#">[Google Scholar or ORCID link]</a></li>         -->
+        <li><span>Based in</span> [Nashik, India]</li>
       </ul>
     </div>
   </div>
@@ -691,7 +663,7 @@ foreach x in `gpcontrols' {
 
 <footer>
   <div class="wrap">
-    <p>© <span id="year">2026</span> Amol Shaila Suresh. [Add a line here if you want one — e.g. site last updated Month Year.]</p>
+    <p>© <span id="year">2026</span> Amol Shaila Suresh. last updated Sept 2026.]</p>
   </div>
 </footer>
 
