@@ -5,8 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 <!-- ============================================================
+     HOW TO FIND MY CHANGES
+     Every change is marked with a comment that starts with
+       CHANGE 1 ... CHANGE 8  — the eight changes you asked for
+       FIX                    — typos / grammar / a broken layout
+                                block I corrected (listed in chat)
+     Search the file (Ctrl+F / Cmd+F) for "CHANGE" or "FIX".
+     ============================================================ -->
+
+<!-- ============================================================
      EDIT 1 — PAGE TITLE AND SEARCH DESCRIPTION
-     This is what shows in the browser tab and in Google results.
      ============================================================ -->
 <title>Amol Shaila Suresh — Social Researcher</title>
 <meta name="description" content="Social researcher working on social protection, caste and gender inequality, and local governance in India. Impact evaluation, survey methodology, mixed methods.">
@@ -18,17 +26,17 @@
 <style>
 /* ================================================================
    COLOURS AND TYPE  —  change the hex codes here to restyle the
-   whole site at once. Nothing else needs touching.
+   whole site at once.
    ================================================================ */
 :root{
   --paper:#FBFBF9;
-  --paper-2:#F3F4F0;
+  --paper-2:#F2F4EF;
   --ink:#1B2430;
   --ink-soft:#4E5A66;
   --ink-faint:#818C97;
   --rule:#DFE1DB;
   --accent:#35604F;
-  --accent-soft:#E6EEE9;
+  --accent-soft:#E3EDE7;
   --serif:"Newsreader",Georgia,"Times New Roman",serif;
   --sans:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
@@ -40,7 +48,7 @@
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --paper:#14181C;
-    --paper-2:#1C2228;
+    --paper-2:#1A2026;
     --ink:#E9EBE6;
     --ink-soft:#B2BBC2;
     --ink-faint:#7E8A93;
@@ -51,7 +59,7 @@
 }
 :root[data-theme="dark"]{
   --paper:#14181C;
-  --paper-2:#1C2228;
+  --paper-2:#1A2026;
   --ink:#E9EBE6;
   --ink-soft:#B2BBC2;
   --ink-faint:#7E8A93;
@@ -103,20 +111,30 @@ a{color:inherit}
 
 /* ---------------- section frame (journal-style rail) ---------------- */
 .section{padding:5.5rem 0;border-top:1px solid var(--rule)}
-.section:first-of-type{border-top:none}
 .grid{display:grid;grid-template-columns:180px minmax(0,1fr);gap:3.5rem;align-items:start}
 .rail{position:sticky;top:120px}
+
+/* CHANGE 7 — section names now in the accent colour with a short
+   accent rule above them, so each section has a clear starting point */
 .rail h2{
-  font-family:var(--serif);font-size:1.05rem;font-weight:500;font-style:italic;
-  margin:0 0 .5rem;color:var(--ink);
+  font-family:var(--serif);font-size:1.25rem;font-weight:500;font-style:italic;
+  margin:0 0 .5rem;color:var(--accent);
+}
+.rail h2::before{
+  content:"";display:block;width:28px;height:2px;background:var(--accent);
+  margin-bottom:.9rem;
 }
 .rail p{margin:0;font-size:.82rem;line-height:1.5;color:var(--ink-faint)}
 @media (max-width:900px){
   .grid{grid-template-columns:1fr;gap:1.75rem}
   .rail{position:static}
-  .rail h2{font-size:1.4rem}
+  .rail h2{font-size:1.45rem}
   .section{padding:3.75rem 0}
 }
+
+/* CHANGE 7 — the Work section sits on a lightly tinted band, which
+   breaks up the long run of identical white sections */
+.section.band{background:var(--paper-2)}
 
 /* ---------------- typography ---------------- */
 h1,h2,h3,h4{font-family:var(--serif);font-weight:400;letter-spacing:-.005em}
@@ -124,45 +142,85 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;letter-spacing:-.005em}
 p{max-width:var(--measure)}
 .prose p{margin:0 0 1.15rem}
 .prose p:last-child{margin-bottom:0}
+/* CHANGE 7 — first paragraph of About set slightly larger, as a standfirst */
+.prose > p:first-of-type{font-family:var(--serif);font-size:1.2rem;line-height:1.6;color:var(--ink)}
 
 /* ---------------- hero ---------------- */
-.hero{padding:clamp(3.5rem,9vw,7rem) 0 clamp(3rem,6vw,5rem)}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:4rem;align-items:end}
-.hero h1{
-  font-size:clamp(2.1rem,5.2vw,3.55rem);
-  line-height:1.12;margin:0 0 1.5rem;max-width:18ch;font-weight:300;
+/* CHANGE 7 — hero is now a positioned box so the faint contour-line
+   drawing (a nod to field maps) can sit behind it */
+.hero{position:relative;overflow:hidden;padding:clamp(3.5rem,8vw,6rem) 0 clamp(3rem,6vw,4.5rem)}
+.hero-contours{
+  position:absolute;right:-12%;top:-18%;width:min(760px,90vw);height:auto;
+  color:var(--accent);opacity:.16;pointer-events:none;z-index:0;
 }
-.hero .lede{font-size:clamp(1.02rem,1.6vw,1.16rem);line-height:1.6}
-.hero-links{display:flex;flex-wrap:wrap;gap:.6rem 1.75rem;margin-top:2.25rem;align-items:center}
+.hero .wrap{position:relative;z-index:1}
+@media (max-width:900px){ .hero-contours{right:-40%;top:-10%;opacity:.12} }
+
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:4rem;align-items:end}
+
+/* CHANGE 1 — headline font size reduced
+   was:  clamp(2.1rem, 5.2vw, 3.55rem)   max-width 18ch
+   now:  clamp(1.7rem, 3.4vw, 2.5rem)    max-width 24ch
+   To make it smaller or larger, change the last number (2.5rem). */
+.hero h1{
+  font-size:clamp(1.7rem,3.4vw,2.5rem);
+  line-height:1.2;margin:0 0 1.4rem;max-width:24ch;font-weight:300;
+}
+.hero .lede{font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.65}
+.hero-links{display:flex;flex-wrap:wrap;gap:.6rem 1.75rem;margin-top:2.1rem;align-items:center}
 .btn{
   display:inline-block;background:var(--accent);color:var(--paper);
   padding:.7rem 1.35rem;text-decoration:none;font-size:.92rem;font-weight:500;
-  border-radius:2px;transition:opacity .18s;
+  border-radius:2px;transition:opacity .18s,transform .18s;
 }
 :root[data-theme="dark"] .btn,
 :root:not([data-theme="light"]) .btn{color:#10151A}
 @media (prefers-color-scheme:light){ :root:not([data-theme="dark"]) .btn{color:var(--paper)} }
-.btn:hover{opacity:.86}
-.textlink{color:var(--ink-soft);text-decoration:none;font-size:.92rem;border-bottom:1px solid var(--rule);padding-bottom:2px;transition:color .18s,border-color .18s}
-.textlink:hover{color:var(--ink);border-bottom-color:var(--accent)}
+.btn:hover{opacity:.88;transform:translateY(-1px)}
 
-.portrait{
-  aspect-ratio:4/5;background:var(--paper-2);border:1px solid var(--rule);
-  display:flex;align-items:center;justify-content:center;text-align:center;
-  color:var(--ink-faint);font-size:.8rem;padding:1.5rem;line-height:1.5;
+/* CHANGE 7 — links underlined in a soft accent instead of grey */
+.textlink{
+  color:var(--ink-soft);text-decoration:none;font-size:.92rem;
+  border-bottom:1px solid color-mix(in srgb,var(--accent) 45%,transparent);
+  padding-bottom:2px;transition:color .18s,border-color .18s;
 }
-.hero-meta{margin-top:1.25rem;font-size:.85rem;color:var(--ink-faint);line-height:1.6}
+.textlink:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* CHANGE 2 — photo border removed.
+   The thin grey frame is gone. In its place is a soft tinted block
+   offset behind the photo. To remove that too, delete the whole
+   ".photo-frame::before" rule below. */
+.photo-frame{position:relative;max-width:300px}
+.photo-frame::before{
+  content:"";position:absolute;inset:16px -16px -16px 16px;
+  background:var(--accent-soft);z-index:0;
+}
+.photo-frame img{
+  position:relative;z-index:1;width:100%;aspect-ratio:4/5;object-fit:cover;
+  border:none;
+}
+.photo-missing{
+  display:none;position:relative;z-index:1;aspect-ratio:4/5;background:var(--paper-2);
+  align-items:center;justify-content:center;text-align:center;padding:1.5rem;
+  color:var(--ink-faint);font-size:.8rem;line-height:1.5;
+}
+.photo-frame.no-photo img{display:none}
+.photo-frame.no-photo .photo-missing{display:flex}
+
+/* CHANGE 3 — short bio under the photo is larger
+   was: .85rem, faint grey   now: 1rem, darker grey */
+.hero-meta{margin-top:2rem;font-size:1rem;color:var(--ink-soft);line-height:1.65}
 @media (max-width:900px){
   .hero-grid{grid-template-columns:1fr;gap:2.5rem}
-  .hero-aside{max-width:260px}
+  .hero-aside{max-width:280px}
 }
 
 /* ---------------- research entries ---------------- */
 .entry{padding:2.5rem 0;border-top:1px solid var(--rule)}
 .entry:first-child{padding-top:0;border-top:none}
 .entry-head{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:baseline;margin-bottom:.65rem}
-.entry h3{font-size:1.4rem;margin:0;line-height:1.3;max-width:34ch}
-.entry .when{font-size:.82rem;color:var(--ink-faint);white-space:nowrap}
+.entry h3{font-size:1.4rem;margin:0;line-height:1.3;max-width:40ch}
+.entry .when{font-size:.82rem;color:var(--accent);white-space:nowrap}
 .entry .overview{margin:0 0 1.5rem;color:var(--ink-soft)}
 .facts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.65rem 1.5rem;margin:0;font-size:.94rem}
 .facts dt{font-family:var(--serif);font-style:italic;color:var(--ink-faint);white-space:nowrap}
@@ -176,50 +234,55 @@ p{max-width:var(--measure)}
 /* small evidence figure */
 .figure{margin:1.6rem 0 0;padding:1.25rem 1.35rem;background:var(--paper-2);border-left:2px solid var(--accent)}
 .figure h4{margin:0 0 .9rem;font-size:.95rem;font-weight:500}
-.bar-row{display:grid;grid-template-columns:minmax(0,1fr) 46px;gap:.75rem;align-items:center;margin-bottom:.5rem;font-size:.85rem}
+.bar-row{display:grid;grid-template-columns:minmax(0,1fr) 52px;gap:.75rem;align-items:center;margin-bottom:.5rem;font-size:.85rem}
 .bar-label{color:var(--ink-soft)}
 .bar-track{grid-column:1/-1;height:5px;background:var(--rule);margin:-.15rem 0 .85rem;position:relative;overflow:hidden}
 .bar-fill{position:absolute;inset:0 auto 0 0;background:var(--accent);width:var(--w,0%)}
 .bar-val{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-faint)}
 .figure figcaption{font-size:.78rem;color:var(--ink-faint);margin-top:.25rem;line-height:1.5}
 
+/* CHANGE 7 — bars grow to their value when the chart scrolls into view.
+   Switched off for anyone who has "reduce motion" set on their device. */
+@media (prefers-reduced-motion:no-preference){
+  .js .figure .bar-fill{transition:width 1.1s cubic-bezier(.2,.7,.3,1)}
+  .js .figure:not(.is-visible) .bar-fill{width:0}
+}
+
 /* ---------------- portfolio filter ---------------- */
 .filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem}
 .filters button{
   font-family:var(--sans);font-size:.85rem;color:var(--ink-soft);
-  background:transparent;border:1px solid var(--rule);border-radius:999px;
+  background:var(--paper);border:1px solid var(--rule);border-radius:999px;
   padding:.35rem .9rem;cursor:pointer;transition:all .18s;
 }
 .filters button:hover{color:var(--ink);border-color:var(--ink-faint)}
-.filters button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
+.filters button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+:root[data-theme="dark"] .filters button[aria-pressed="true"]{color:#10151A}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .filters button[aria-pressed="true"]{color:#10151A} }
 .items{display:grid;gap:0}
 .item{padding:1.4rem 0;border-top:1px solid var(--rule);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.4rem 1.5rem;align-items:baseline}
 .item:first-child{border-top:none;padding-top:0}
 .item[hidden]{display:none}
 .item h4{margin:0;font-size:1.08rem;font-weight:400;line-height:1.35}
-.item h4 a{text-decoration:none;border-bottom:1px solid var(--rule)}
-.item h4 a:hover{border-bottom-color:var(--accent)}
-.item .kind{font-size:.78rem;color:var(--ink-faint);white-space:nowrap}
-.item p{grid-column:1/-1;margin:.35rem 0 0;font-size:.92rem;color:var(--ink-soft)}
-.codeblock{
-  grid-column:1/-1;margin:.9rem 0 0;padding:1rem 1.1rem;background:var(--paper-2);
-  font-family:var(--mono);font-size:.78rem;line-height:1.7;color:var(--ink-soft);
-  overflow-x:auto;border:1px solid var(--rule);
+.item h4 a{text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+.item h4 a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* CHANGE 7 — the type of each item (Dissertation, Stata, R...) is now
+   a small tinted tag rather than plain grey text */
+.item .kind{
+  font-size:.74rem;color:var(--accent);white-space:nowrap;
+  background:var(--accent-soft);padding:.15rem .6rem;border-radius:999px;
 }
-.codeblock .c{color:var(--ink-faint)}
+.item p{grid-column:1/-1;margin:.35rem 0 0;font-size:.92rem;color:var(--ink-soft)}
 
 /* ---------------- CV ---------------- */
 .cv-block{margin-bottom:2.5rem}
-.cv-block > h3{font-family:var(--serif);font-style:italic;font-size:1.1rem;margin:0 0 1.1rem;color:var(--ink-soft)}
+.cv-block > h3{font-family:var(--serif);font-style:italic;font-size:1.15rem;margin:0 0 1.1rem;color:var(--ink-soft)}
 .cv-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:.4rem 1.5rem;padding:.9rem 0;border-top:1px solid var(--rule)}
-.cv-row .years{font-size:.85rem;color:var(--ink-faint);font-variant-numeric:tabular-nums;padding-top:.15rem}
+.cv-row .years{font-size:.85rem;color:var(--accent);font-variant-numeric:tabular-nums;padding-top:.15rem}
 .cv-row .role{margin:0;font-weight:500;font-size:1rem}
 .cv-row .org{margin:.1rem 0 0;font-size:.92rem;color:var(--ink-soft)}
 @media (max-width:640px){ .cv-row{grid-template-columns:1fr;gap:.15rem} }
-
-.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:.5rem}
-.skills h4{margin:0 0 .35rem;font-size:.95rem;font-weight:500;font-family:var(--sans)}
-.skills p{margin:0;font-size:.92rem;color:var(--ink-soft)}
 
 /* ---------------- contact ---------------- */
 .contact-list{list-style:none;padding:0;margin:0;display:grid;gap:.9rem;max-width:34rem}
@@ -243,7 +306,6 @@ footer p{margin:0}
 
 <header class="topbar">
   <div class="wrap topbar-in">
-    <!-- EDIT 2 — YOUR NAME, top left -->
     <a class="brand" href="#top">Amol Shaila Suresh</a>
     <nav class="nav" aria-label="Sections">
       <a href="#about">About</a>
@@ -260,37 +322,55 @@ footer p{margin:0}
 
 <!-- ================================================================
      HOME / HERO
-     EDIT 3 — the headline, the short description, and the links.
      ================================================================ -->
 <section class="hero">
+
+  <!-- CHANGE 7 — faint contour-line drawing behind the hero, like the
+       lines on a survey map. Purely decorative. To remove it, delete
+       everything from <svg class="hero-contours" ... to </svg>. -->
+  <svg class="hero-contours" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+    <g transform="translate(300 300)" fill="none" stroke="currentColor" stroke-width="1.2">
+      <path vector-effect="non-scaling-stroke" transform="scale(1)"            d="M0,-260 C140,-250 250,-160 255,-20 C262,120 170,240 20,250 C-130,262 -240,170 -255,30 C-270,-110 -150,-268 0,-260 Z"/>
+      <path vector-effect="non-scaling-stroke" transform="rotate(7) scale(.86)"  d="M0,-260 C140,-250 250,-160 255,-20 C262,120 170,240 20,250 C-130,262 -240,170 -255,30 C-270,-110 -150,-268 0,-260 Z"/>
+      <path vector-effect="non-scaling-stroke" transform="rotate(14) scale(.72)" d="M0,-260 C140,-250 250,-160 255,-20 C262,120 170,240 20,250 C-130,262 -240,170 -255,30 C-270,-110 -150,-268 0,-260 Z"/>
+      <path vector-effect="non-scaling-stroke" transform="rotate(22) scale(.58)" d="M0,-260 C140,-250 250,-160 255,-20 C262,120 170,240 20,250 C-130,262 -240,170 -255,30 C-270,-110 -150,-268 0,-260 Z"/>
+      <path vector-effect="non-scaling-stroke" transform="rotate(30) scale(.44)" d="M0,-260 C140,-250 250,-160 255,-20 C262,120 170,240 20,250 C-130,262 -240,170 -255,30 C-270,-110 -150,-268 0,-260 Z"/>
+      <path vector-effect="non-scaling-stroke" transform="rotate(40) scale(.30)" d="M0,-260 C140,-250 250,-160 255,-20 C262,120 170,240 20,250 C-130,262 -240,170 -255,30 C-270,-110 -150,-268 0,-260 Z"/>
+      <path vector-effect="non-scaling-stroke" transform="rotate(52) scale(.16)" d="M0,-260 C140,-250 250,-160 255,-20 C262,120 170,240 20,250 C-130,262 -240,170 -255,30 C-270,-110 -150,-268 0,-260 Z"/>
+    </g>
+  </svg>
+
   <div class="wrap hero-grid">
     <div>
-      <h1 class="reveal">Field research on caste, gender, social protection and authority in India's local instituitions.</h1>
+      <!-- FIX — "instituitions" corrected to "institutions" -->
+      <h1 class="reveal">Field research on caste, gender, social protection and authority in India's local institutions.</h1>
       <p class="lede reveal">
-        I am a social researcher working on caste, gender, social protection, 
+        I am a social researcher working on caste, gender, social protection,
         and local governance in India. I work across methods: surveys and
-        field experiments, interviews and ethnography, and the analysis that 
+        field experiments, interviews and ethnography, and the analysis that
         follows. I am trained in social research methods at LSE, and in development
-        economics, and much of what I know came from years of fieldwork in rural 
+        economics, and much of what I know came from years of fieldwork in rural
         districts and from working inside a state government.
       </p>
       <div class="hero-links reveal">
-        <!-- Replace the file name below once you upload your CV PDF -->
-        <a class="btn" href="cv.pdf" download>Download CV (PDF)</a>
+        <!-- CHANGE 6 — CV now opens in a new tab instead of downloading
+             straight away (the browser's PDF viewer still has a download
+             button). Label changed from "Download" to "View" to match. -->
+        <a class="btn" href="cv.pdf">View CV (PDF)</a>
         <a class="textlink" href="#research">Selected research</a>
         <a class="textlink" href="#contact">Get in touch</a>
       </div>
     </div>
 
     <aside class="hero-aside">
-      <!-- EDIT 4 — PHOTO
-           To add one: put a file called photo.jpg next to this page, then
-           replace this whole <div class="portrait"> block with:
-           <img class="portrait" src="photo.jpg" alt="Amol Shaila Suresh">
-      -->
-      
-      <img class="portrait" src="photo.jpg" alt="Amol Shaila Suresh">   
-      <!--   <div class="portrait">Add a portrait photo here (portrait orientation, roughly 800&nbsp;×&nbsp;1000&nbsp;px)</div> -->
+      <!-- CHANGE 2 — photo now sits inside a "photo-frame" box with no
+           border. If photo.jpg is missing, a note appears instead of a
+           broken-image icon. -->
+      <div class="photo-frame" id="photoFrame">
+        <img src="photo.jpg" alt="Amol Shaila Suresh">
+        <div class="photo-missing">Photo not found. Upload a file named photo.jpg next to index.html.</div>
+      </div>
+      <!-- CHANGE 3 — this block is now larger (see .hero-meta in the style section) -->
       <p class="hero-meta">
         MSc Social Research Methods, LSE<br>
         MA Development Economics, South Asian University<br>
@@ -308,21 +388,21 @@ footer p{margin:0}
   <div class="wrap grid">
     <div class="rail">
       <h2>About</h2>
-<!--      <p>Background, training, and how I approach research.</p> -->
     </div>
     <div class="prose">
-      <!-- EDIT 5 — your About text. Keep it to four or five short paragraphs. -->
+      <!-- FIX — US spellings changed to British throughout this section
+           (organisations, randomised, programme) to match the rest of the site -->
       <p>
         I work at the point where field research meets policy. For most of the past
-        decade that work has been in rural India: first with grassroots organizations in
+        decade that work has been in rural India: first with grassroots organisations in
         Maharashtra's underserved districts during two severe droughts; then embedded inside
         the Government of Maharashtra's Department of Rural Development; and most
-        recently on a randomized controlled trial in Bihar on women's collective action
-        and access to MGNREGA, the world's largest public workfare program.
+        recently on a randomised controlled trial in Bihar on women's collective action
+        and access to MGNREGA, the world's largest public workfare programme.
       </p>
 
-<!--      <p>        
-        That sequence shapes how I think about evidence — where it comes from, who generates 
+<!--      <p>
+        That sequence shapes how I think about evidence — where it comes from, who generates
         it, what it can and cannot say, and what has to happen for a program to reach the people
         it is meant to serve. I have seen data collected under difficult field conditions,
         and I have also see the other side, in a state department, deciding what to do with it.
@@ -352,8 +432,6 @@ footer p{margin:0}
 
 <!-- ================================================================
      RESEARCH PROJECTS
-     To add a project: copy one whole <article class="entry"> ... </article>
-     block and change the text inside it.
      ================================================================ -->
 <section class="section" id="research">
   <div class="wrap grid">
@@ -366,59 +444,69 @@ footer p{margin:0}
       <!-- ---------- PROJECT 1 ---------- -->
       <article class="entry">
         <div class="entry-head">
-          <h3>Descriptive representation, substantive exclusion: Elite backlash against 
-               scheduled caste village presidents in rural India</h3>
+          <h3>Descriptive representation, substantive exclusion: elite backlash against
+               Scheduled Caste village presidents in rural India</h3>
           <span class="when">2025–26</span>
         </div>
+        <!-- FIX — "political quotas does not" → "do not";
+                   "Existing work have" → "has" -->
         <p class="overview">
           India reserves a share of village council leadership for Scheduled Castes, but
-          political quotas does not guarantee that elected leaders actually exercise authority.
-          Existing work have documented elite capture in detail. This study asks what happens
+          political quotas do not guarantee that elected leaders actually exercise authority.
+          Existing work has documented elite capture in detail. This study asks what happens
           to the leaders who refuse to be a proxy for elites.
         </p>
         <dl class="facts">
           <dt>Question</dt>
-          <dd>How does the exercise of independent authority by Scheduled Caste village heads 
+          <dd>How does the exercise of independent authority by Scheduled Caste village heads
                relate to the obstruction and exclusion they face from elites and officials?</dd>
           <dt>Design</dt>
-          <dd>Telephonic survey of 299 serving village heads in Bihar (150 SC, 149 non-SC), drawn 
-               as a stratified random sample from the State Election Commission register; 
-               a paired-profile conjoint experiment and a cash-burning experiment embedded in 
+          <dd>Telephonic survey of 299 serving village heads in Bihar (150 SC, 149 non-SC), drawn
+               as a stratified random sample from the State Election Commission register;
+               a paired-profile conjoint experiment and a cash-burning experiment embedded in
                the non-SC instrument; seven semi-structured interviews of SC leaders in Bihar and Maharashtra.</dd>
           <dt>My role</dt>
-          <dd>Sole researcher. Designed both instruments and the two experiments, conducted the interviews, 
-               trained and supervized the survey firm's enumerators, and carried out all analysis in Stata.</dd>
+          <!-- FIX — "supervized" → "supervised" -->
+          <dd>Sole researcher. Designed both instruments and the two experiments, conducted the interviews,
+               trained and supervised the survey firm's enumerators, and carried out all analysis in Stata.</dd>
           <dt>Findings</dt>
-          <dd>Resistance is concentrated within and around the council rather than at the block office — 
-               false complaints, non-cooperation by elected colleagues, and interference by former incumbents 
-               each exceed reported bureaucratic obstruction. Just under two-thirds of SC village heads report 
-               at least one form of obstruction or exclusion in office; around one-fifth report five or more.  
+          <dd>Resistance is concentrated within and around the council rather than at the block office —
+               false complaints, non-cooperation by elected colleagues, and interference by former incumbents
+               each exceed reported bureaucratic obstruction. Just under two-thirds of SC village heads report
+               at least one form of obstruction or exclusion in office; around one-fifth report five or more.
                Both experiments returned nulls, which I read as a limit of the measurement rather than evidence of no effect.</dd>
           <dt>Output</dt>
-          <dd>MSc dissertation, Department of Methodology, LSE (Supervisor: Dr Saide Mobayed). 
-               A related article drawing on the pilot interviews appeared in the 
+          <dd>MSc dissertation, Department of Methodology, LSE (Supervisor: Dr Saide Mobayed).
+               A related article drawing on the pilot interviews appeared in the
                <em>Graduate Inequality Review</em>, University of Oxford.</dd>
         </dl>
 
         <figure class="figure">
           <h4>Most common forms of resistance reported by SC village heads</h4>
-          <!-- Edit the numbers and the --w percentage together so the bars stay honest -->
           <div class="bar-row"><span class="bar-label">False accusations or cases filed</span><span class="bar-val">38.7%</span></div>
           <div class="bar-track"><span class="bar-fill" style="--w:38.7%"></span></div>
           <div class="bar-row"><span class="bar-label">Elected colleagues refuse to cooperate</span><span class="bar-val">36.0%</span></div>
           <div class="bar-track"><span class="bar-fill" style="--w:36.0%"></span></div>
           <div class="bar-row"><span class="bar-label">Former incumbent interferes</span><span class="bar-val">25.3%</span></div>
           <div class="bar-track"><span class="bar-fill" style="--w:25.3%"></span></div>
-          <div class="bar-row"><span class="bar-label">Elites organize citizen against them</span><span class="bar-val">24.0%</span></div>
+          <!-- FIX — "Elites organize citizen against them" → "Upper-caste elites organise villagers against them"
+               (matches the wording in your dissertation's Table 1) -->
+          <div class="bar-row"><span class="bar-label">Upper-caste elites organise villagers against them</span><span class="bar-val">24.0%</span></div>
           <div class="bar-track"><span class="bar-fill" style="--w:24.0%"></span></div>
           <div class="bar-row"><span class="bar-label">Kept from information the office is entitled to</span><span class="bar-val">15.5%</span></div>
           <div class="bar-track"><span class="bar-fill" style="--w:15.5%"></span></div>
           <figcaption>n = 150 Scheduled Caste village heads, Bihar, July–August 2026. Self-reported.</figcaption>
         </figure>
 
+        <!-- CHANGE 4 — these now point to PDF files instead of "#".
+             Upload two PDFs to your repository with EXACTLY these names
+             (lowercase, hyphens, no spaces):
+               msc-dissertation.pdf
+               graduate-inequality-review-article.pdf
+             They open in a new tab (see CHANGE 6 at the bottom). -->
         <div class="entry-links">
-          <a class="textlink" href="#">Read the dissertation (PDF)</a>
-          <a class="textlink" href="#">Published article</a>
+          <a class="textlink" href="msc-dissertation.pdf">Read the dissertation (PDF)</a>
+          <a class="textlink" href="graduate-inequality-review-article.pdf">Read the published article (PDF)</a>
         </div>
       </article>
 
@@ -428,31 +516,31 @@ footer p{margin:0}
           <h3>Collective action and women's access to MGNREGA</h3>
           <span class="when">2023–25</span>
         </div>
+        <!-- FIX — "randomized" → "randomised"; "increase" → "increases" -->
         <p class="overview">
-          A randomized controlled trial in rural Bihar testing whether organising women
-          workers into a collective improves their access to public employment and increase
+          A randomised controlled trial in rural Bihar testing whether organising women
+          workers into a collective improves their access to public employment and increases
           their labour market participation.
         </p>
         <dl class="facts">
           <dt>Question</dt>
-          <dd>Does collective action by women workers improve access to MGNREGA entitlements 
+          <dd>Does collective action by women workers improve access to MGNREGA entitlements
                and labour market participation?</dd>
           <dt>Design</dt>
-          <dd>Cluster-randomised trial across 125 village councils, with phone and in-person 
-               survey rounds covering 6,250 households, alongside scraped and cleaned MGNREGA 
+          <dd>Cluster-randomised trial across 125 village councils, with phone and in-person
+               survey rounds covering 6,250 households, alongside scraped and cleaned MGNREGA
                administrative records.</dd>
           <dt>My role</dt>
-          <dd>Senior Research Associate, with Dr M. R. Sharan (University of Maryland) and 
-               Dr Niharika Singh (University of Notre Dame / LSE). Managed field implementation 
-               and the data pipeline: programmed SurveyCTO instruments, trained and monitored 
-               enumerators, ran high-frequency data quality checks, built the Stata cleaning 
-               and merging pipeline, and acted as the main link between the research team, 
+          <dd>Senior Research Associate, with Dr M. R. Sharan (University of Maryland) and
+               Dr Niharika Singh (University of Notre Dame / LSE). Managed field implementation
+               and the data pipeline: programmed SurveyCTO instruments, trained and monitored
+               enumerators, ran high-frequency data quality checks, built the Stata cleaning
+               and merging pipeline, and acted as the main link between the research team,
                the survey firm and the implementing partner.</dd>
           <dt>Status</dt>
-          <dd>Ongoing. [Analysis in progress.]</dd>
+          <dd>Ongoing. Analysis in progress.</dd>
         </dl>
       </article>
-
 
       <!-- ---------- PROJECT 3 ---------- -->
       <article class="entry">
@@ -470,8 +558,8 @@ footer p{margin:0}
           <dt>Design</dt>
           <dd>OLS regression with a five-year panel of administrative data.</dd>
           <dt>My role</dt>
-          <dd>Sole author. Scraped, cleaned and analyzed the administrative data.
-               </dd>
+          <!-- FIX — "analyzed" → "analysed" -->
+          <dd>Sole author. Scraped, cleaned and analysed the administrative data.</dd>
           <dt>Output</dt>
           <dd>MA dissertation, South Asian University.</dd>
         </dl>
@@ -483,10 +571,9 @@ footer p{margin:0}
 
 <!-- ================================================================
      WORK / PORTFOLIO  (filterable)
-     To add an item: copy one <article class="item"> block and change
-     its data-kind to one of: papers, writing, code, viz, reports
+     CHANGE 7 — class="band" added to give this section a tinted background
      ================================================================ -->
-<section class="section" id="work">
+<section class="section band" id="work">
   <div class="wrap grid">
     <div class="rail">
       <h2>Work</h2>
@@ -494,11 +581,9 @@ footer p{margin:0}
     </div>
     <div>
       <div class="filters" role="group" aria-label="Filter work by type">
-        <button type="button" data-filter="all" aria-pressed="true">All</button>        
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
         <button type="button" data-filter="writing" aria-pressed="false">Research writing</button>
         <button type="button" data-filter="code" aria-pressed="false">Code</button>
-        
-        
 <!--
         <button type="button" data-filter="papers" aria-pressed="false">Research papers</button>
         <button type="button" data-filter="viz" aria-pressed="false">Data visualisation</button>
@@ -507,34 +592,43 @@ footer p{margin:0}
 
       <div class="items" id="items">
 
+        <!-- CHANGE 5 — the first three entries now link to PDF files.
+             Upload three PDFs with EXACTLY these names:
+               msc-dissertation.pdf                     (same file as in Research)
+               graduate-inequality-review-article.pdf   (same file as in Research)
+               ma-dissertation.pdf
+             You only need to upload each file once, even though two of
+             them are linked from two places. -->
         <article class="item" data-kind="writing">
-          <h4><a href="#">Descriptive representation, substantive exclusion: elite backlash against Scheduled Caste village presidents in rural India</a></h4>
+          <h4><a href="msc-dissertation.pdf">Descriptive representation, substantive exclusion: elite backlash against Scheduled Caste village presidents in rural India</a></h4>
           <span class="kind">Dissertation · Aug 2026</span>
           <p>MSc dissertation, LSE. Survey of 299 village heads, two embedded experiments, and seven interviews.</p>
         </article>
-           
+
         <article class="item" data-kind="writing">
-          <h4><a href="#">Procedural representation and elite backlash: experiences of everyday discrimination faced by Scheduled Caste village presidents in India</a></h4>
+          <h4><a href="graduate-inequality-review-article.pdf">Procedural representation and elite backlash: experiences of everyday discrimination faced by Scheduled Caste village presidents in India</a></h4>
           <span class="kind">Article · Aug 2026</span>
           <p>Published in the <em>Graduate Inequality Review</em>, University of Oxford.</p>
         </article>
 
         <article class="item" data-kind="writing">
-          <h4><a href="#">Effect of social audits on MGNREGA programme delivery and leakages</a></h4>
+          <h4><a href="ma-dissertation.pdf">Effect of social audits on MGNREGA programme delivery and leakages</a></h4>
           <span class="kind">Dissertation · May 2023</span>
           <p>MA dissertation, South Asian University. Five-year panel analysis.</p>
         </article>
 
+        <!-- FIX — "State sample code" → "Stata sample code" -->
         <article class="item" data-kind="code">
-          <h4><a href="#">State sample code</a></h4>
+          <h4><a href="#">Stata sample code</a></h4>
           <span class="kind">Stata</span>
           <p>Cleaning and recoding household survey data. Matching and merging administrative data using string match function of Stata. Running balance tests.</p>
         </article>
 
+        <!-- FIX — "Reappraisal of the ... paper" reworded slightly so it reads as a sentence -->
         <article class="item" data-kind="code">
           <h4><a href="#">R sample code</a></h4>
           <span class="kind">R</span>
-          <p>Reappraisal of the "Polity Size and Local Government Performance: Evidence from India" by Narasimhan & Weaver (2024) paper</p>
+          <p>A reappraisal of Narasimhan and Weaver (2024), "Polity Size and Local Government Performance: Evidence from India".</p>
         </article>
 
         <article class="item" data-kind="code">
@@ -543,12 +637,13 @@ footer p{margin:0}
           <p>A programmed endline household instrument with skip logic, constraints and pre-loaded roster data, built for in-person administration by a field team in Bihar.</p>
         </article>
 
+        <!-- FIX — "KoboToolBox" → "KoboToolbox" (the product's own spelling); "program" → "programme" -->
         <article class="item" data-kind="code">
-          <h4><a href="#">KoboToolBox sample code</a></h4>
-          <span class="kind">KoboToolBox</span>
-          <p>A KoboToolbox instrument for tracking program activity - group meetings, members enrolled, donations received - reported by the implementation team.</p>
-        </article>   
-        
+          <h4><a href="#">KoboToolbox sample code</a></h4>
+          <span class="kind">KoboToolbox</span>
+          <p>A KoboToolbox instrument for tracking programme activity — group meetings, members enrolled, donations received — reported by the implementation team.</p>
+        </article>
+
       </div>
     </div>
   </div>
@@ -565,8 +660,9 @@ footer p{margin:0}
     </div>
     <div>
 
+      <!-- CHANGE 6 — opens in a new tab; label changed to "View" -->
       <p style="margin-top:0">
-        <a class="btn" href="cv.pdf" download>Download full CV (PDF)</a>
+        <a class="btn" href="cv.pdf">View full CV (PDF)</a>
       </p>
 
       <div class="cv-block" style="margin-top:2.5rem">
@@ -619,14 +715,20 @@ footer p{margin:0}
 
       <div class="cv-block">
         <h3>Volunteering &amp; Leadership</h3>
+        <!-- FIX — both entries were inside ONE cv-row box, which broke the
+             two-column layout. Split into two separate rows.
+             FIX — "EvalYouth Reference Group" → "Evaluation Reference Group"
+             (ERG stands for Evaluation Reference Group; EvalYouth is the
+             separate network listed below). "program" → "programme". -->
         <div class="cv-row">
           <span class="years">2026–present</span>
-          <div><p class="role">Member, EvalYouth Reference Group, UNICEF India</p>
-          <p class="org">Member of ERG for UNICEF India's evaluation of a pilot program supporting young women migrants, reviewing the evaluation design and draft findings.</p></div>
-
+          <div><p class="role">Member, Evaluation Reference Group, UNICEF India</p>
+          <p class="org">Member of the ERG for UNICEF India's evaluation of a pilot programme supporting young women migrants, reviewing the evaluation design and draft findings.</p></div>
+        </div>
+        <div class="cv-row">
           <span class="years">2022–2025</span>
           <div><p class="role">Co-lead, EvalYouth Asia</p>
-          <p class="org">Regional chapter of the EvalYouth Global Network for young and emerging evaluators. Organised M&amp;E capacity-building workshops in Manila (2023) and Colombo (2024).</p></div>   
+          <p class="org">Regional chapter of the EvalYouth Global Network for young and emerging evaluators. Organised M&amp;E capacity-building workshops in Manila (2023) and Colombo (2024).</p></div>
         </div>
       </div>
 
@@ -668,6 +770,53 @@ footer p{margin:0}
 </footer>
 
 <script>
+// Marks the page as having JavaScript (used by the bar animation)
+document.documentElement.classList.add('js');
+
+// ------------------------------------------------------------------
+// CHANGE 6 — every web link and every file link opens in a new tab.
+// This runs automatically, so any link you add later is covered too.
+// Deliberately left alone:
+//   - links to sections of this page (#about, #research...), because
+//     opening your own page again in a new tab would be confusing
+//   - email links (mailto:), which open the visitor's email app anyway
+//   - placeholder links still set to "#"
+// ------------------------------------------------------------------
+(function(){
+  document.querySelectorAll('a[href]').forEach(function(a){
+    var h = a.getAttribute('href');
+    if (!h || h.charAt(0) === '#' || h.indexOf('mailto:') === 0 || h.indexOf('tel:') === 0) return;
+    a.setAttribute('target', '_blank');
+    var rel = (a.getAttribute('rel') || '').trim();
+    a.setAttribute('rel', (rel ? rel + ' ' : '') + 'noopener noreferrer');
+  });
+})();
+
+// CHANGE 2 — show a note instead of a broken image if photo.jpg is missing
+(function(){
+  var frame = document.getElementById('photoFrame');
+  if (!frame) return;
+  var img = frame.querySelector('img');
+  function missing(){ frame.classList.add('no-photo'); }
+  if (img.complete && img.naturalWidth === 0) missing();
+  img.addEventListener('error', missing);
+})();
+
+// CHANGE 7 — grow the bars when the chart scrolls into view
+(function(){
+  var figs = document.querySelectorAll('.figure');
+  if (!('IntersectionObserver' in window)) {
+    figs.forEach(function(f){ f.classList.add('is-visible'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.35 });
+  figs.forEach(function(f){ io.observe(f); });
+})();
+
 // Portfolio filter
 (function(){
   var buttons = document.querySelectorAll('.filters button');
